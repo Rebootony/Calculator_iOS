@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     }
     private func setupNumberPad(){
         let buttonSize = view.frame.size.width / 4
+        
         let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-buttonSize, width: buttonSize*3, height: buttonSize))
         zeroButton.setTitleColor(.black, for: .normal)
         zeroButton.backgroundColor = .white
@@ -47,6 +48,33 @@ class ViewController: UIViewController {
             otherButton3.backgroundColor = .white
             otherButton3.setTitle("\(x+7)", for: .normal)
             holder.addSubview(otherButton3)
+        }
+        
+        let clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
+        clearButton.setTitleColor(.black, for: .normal)
+        clearButton.backgroundColor = .white
+        clearButton.setTitle("C", for: .normal)//初始化是AC
+        holder.addSubview(clearButton)
+        
+        let negButton = UIButton(frame: CGRect(x: buttonSize, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
+        negButton.setTitleColor(.black, for: .normal)
+        negButton.backgroundColor = .white
+        negButton.setTitle("+/-", for: .normal)
+        holder.addSubview(negButton)
+        
+        let modButton = UIButton(frame: CGRect(x: buttonSize*2, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
+        modButton.setTitleColor(.black, for: .normal)
+        modButton.backgroundColor = .white
+        modButton.setTitle("%", for: .normal)
+        holder.addSubview(modButton)
+        
+        let operation = ["+","-","x","/","="]
+        for x in 0..<5{
+            let opButton = UIButton(frame: CGRect(x: buttonSize * 3, y: holder.frame.size.height-buttonSize * CGFloat(x+1), width: buttonSize, height: buttonSize))
+            opButton.setTitleColor(.black, for: .normal)
+            opButton.backgroundColor = .white
+            opButton.setTitle(operation[x], for: .normal)
+            holder.addSubview(opButton)
         }
     }
 
