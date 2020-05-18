@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             let opButton = UIButton(frame: CGRect(x: buttonSize * 3, y: holder.frame.size.height-buttonSize * CGFloat(x+1), width: buttonSize, height: buttonSize))
             opButton.setTitleColor(.black, for: .normal)
             opButton.backgroundColor = .white
-            opButton.setTitle(operation[x], for: .normal)
+            opButton.setTitle(operation[4-x], for: .normal)
             holder.addSubview(opButton)
         }
     }
