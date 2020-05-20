@@ -34,28 +34,36 @@ class ViewController: UIViewController {
         let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-buttonSize, width: buttonSize*3, height: buttonSize))
         zeroButton.setTitleColor(.black, for: .normal)
         zeroButton.backgroundColor = .white
+        zeroButton.tag = 1
         zeroButton.setTitle("0", for: .normal)
+        zeroButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
         holder.addSubview(zeroButton)
         
         for x in 0..<3{
             let otherButton = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-2*buttonSize, width: buttonSize, height: buttonSize))
             otherButton.setTitleColor(.black, for: .normal)
             otherButton.backgroundColor = .white
+            otherButton.tag = x+2
             otherButton.setTitle("\(x+1)", for: .normal)
+            otherButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             holder.addSubview(otherButton)
         }
         for x in 0..<3{
             let otherButton2 = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-3*buttonSize, width: buttonSize, height: buttonSize))
             otherButton2.setTitleColor(.black, for: .normal)
             otherButton2.backgroundColor = .white
+            otherButton2.tag = x+5
             otherButton2.setTitle("\(x+4)", for: .normal)
+            otherButton2.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             holder.addSubview(otherButton2)
         }
         for x in 0..<3{
             let otherButton3 = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-4*buttonSize, width: buttonSize, height: buttonSize))
             otherButton3.setTitleColor(.black, for: .normal)
             otherButton3.backgroundColor = .white
+            otherButton3.tag = x+8
             otherButton3.setTitle("\(x+7)", for: .normal)
+            otherButton3.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             holder.addSubview(otherButton3)
         }
         
@@ -93,7 +101,18 @@ class ViewController: UIViewController {
     }
     
     @objc func clearResult() {
+        resultLabel.text = "0"
+    }
+    
+    @objc func numberPressed(_ sender: UIButton) {
+        let tag = sender.tag - 1
         
+        if resultLabel.text == "0" {
+            resultLabel.text = "\(tag)"
+        }
+        else if let text = resultLabel.text{
+            resultLabel.text = "\(text)\(tag)"
+        }
     }
 
 }
