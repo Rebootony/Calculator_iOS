@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 24)
+        label.font = UIFont(name:"Arial", size: 100)
         return label
     }()
     override func viewDidLoad() {
@@ -85,6 +85,15 @@ class ViewController: UIViewController {
             opButton.setTitle(operation[4-x], for: .normal)
             holder.addSubview(opButton)
         }
+        resultLabel.frame = CGRect(x: 0, y: holder.frame.size.height-buttonSize * CGFloat(6) , width: view.frame.size.width, height: 100)
+        holder.addSubview(resultLabel)
+        
+        clearButton.addTarget(self, action: #selector(clearResult), for: .touchUpInside)
+        
+    }
+    
+    @objc func clearResult() {
+        
     }
 
 }
