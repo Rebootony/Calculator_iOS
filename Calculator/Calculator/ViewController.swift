@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 80)
+        label.font = UIFont(name:"Arial", size: 40)
         return label
     }()
     override func viewDidLoad() {
@@ -40,13 +40,21 @@ class ViewController: UIViewController {
         let buttonSize = view.frame.size.width / 4
         
         
-        let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-buttonSize, width: buttonSize*3, height: buttonSize))
+        let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-buttonSize, width: buttonSize*2, height: buttonSize))
         zeroButton.setTitleColor(.black, for: .normal)
         zeroButton.backgroundColor = .white
         zeroButton.tag = 1
         zeroButton.setTitle("0", for: .normal)
         zeroButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
         holder.addSubview(zeroButton)
+        
+        let dotButton = UIButton(frame: CGRect(x: buttonSize*2, y: holder.frame.size.height-buttonSize, width: buttonSize, height: buttonSize))
+        dotButton.setTitleColor(.black, for: .normal)
+        dotButton.backgroundColor = .white
+        dotButton.tag = 11
+        dotButton.setTitle(".", for: .normal)
+        dotButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
+        holder.addSubview(dotButton)
         
         for x in 0..<3{
             let otherButton = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-2*buttonSize, width: buttonSize, height: buttonSize))
@@ -87,6 +95,7 @@ class ViewController: UIViewController {
         negButton.backgroundColor = .white
         negButton.setTitle("+/-", for: .normal)
         holder.addSubview(negButton)
+        negButton.addTarget(self, action: #selector(negPressed(_:)), for: .touchUpInside)
         
         let modButton = UIButton(frame: CGRect(x: buttonSize*2, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
         modButton.setTitleColor(.black, for: .normal)
@@ -127,14 +136,34 @@ class ViewController: UIViewController {
         if nextNum == 2 {
             clearResult()
         }
-        print(resultLabel.text)
         if resultLabel.text == "0" {
-            resultLabel.text = "\(tag)"
+            if tag == 10 {
+                resultLabel.text = "0."
+            }
+            else{
+                resultLabel.text = "\(tag)"
+            }
         }
         else if let text = resultLabel.text{
-            resultLabel.text = "\(text)\(tag)"
+            if tag == 10 {
+                var str = ""
+                str = "."
+                if resultLabel.text?.contains(str) == false {
+                    resultLabel.text = "\(text)\(str)"
+                }
+            }
+            else{
+                resultLabel.text = "\(text)\(tag)"
+            }
         }
     }
+    @objc func negPressed(_ sender: UIButton) {
+        if let text = resultLabel.text, let value = Double(text){
+            let result = -value
+            resultLabel.text = "\(result)"
+        }
+    }
+    
     @objc func modPressed(_ sender: UIButton) {
         if let text = resultLabel.text, let value = Double(text){
             let result = value / 100
@@ -191,10 +220,13 @@ class ViewController: UIViewController {
                     resultLabel.text = "\(result)"
                     break
                 }
-                
+            }
+            if resultLabel.text == "-0.0" {
+                resultLabel.text = "0.0"
             }
         }
         
     }
 }
 
+//TODO: 连续运算。
