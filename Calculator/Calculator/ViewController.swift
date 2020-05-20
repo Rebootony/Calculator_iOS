@@ -11,12 +11,21 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var holder: UIView!
+    
+    var firstNum = 0.0
+    var resultNum = 0.0
+    var nextNum = 0
+    var currentOperation: Operations?
+    enum Operations {
+        case divide, multiply, substract, add
+    }
+    
     private var resultLabel: UILabel = {
         let label = UILabel()
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 100)
+        label.font = UIFont(name:"Arial", size: 80)
         return label
     }()
     override func viewDidLoad() {
@@ -84,6 +93,7 @@ class ViewController: UIViewController {
         modButton.backgroundColor = .white
         modButton.setTitle("%", for: .normal)
         holder.addSubview(modButton)
+        modButton.addTarget(self, action: #selector(modPressed(_:)), for: .touchUpInside)
         
         let operation = ["/","*","-","+","="]
         for x in 0..<5{
@@ -91,7 +101,9 @@ class ViewController: UIViewController {
             opButton.setTitleColor(.black, for: .normal)
             opButton.backgroundColor = .orange
             opButton.setTitle(operation[4-x], for: .normal)
+            opButton.tag = 5-x
             holder.addSubview(opButton)
+            opButton.addTarget(self, action: #selector(operationPressed(_:)), for: .touchUpInside)
         }
         resultLabel.frame = CGRect(x: 0, y: holder.frame.size.height-buttonSize * CGFloat(6) , width: view.frame.size.width, height: 100)
         holder.addSubview(resultLabel)
@@ -102,11 +114,20 @@ class ViewController: UIViewController {
     
     @objc func clearResult() {
         resultLabel.text = "0"
+        firstNum = 0.0
+        nextNum = 0
     }
     
     @objc func numberPressed(_ sender: UIButton) {
         let tag = sender.tag - 1
-        
+        if nextNum == 1 {
+            resultLabel.text = "0"
+            nextNum = 0
+        }
+        if nextNum == 2 {
+            clearResult()
+        }
+        print(resultLabel.text)
         if resultLabel.text == "0" {
             resultLabel.text = "\(tag)"
         }
@@ -114,6 +135,66 @@ class ViewController: UIViewController {
             resultLabel.text = "\(text)\(tag)"
         }
     }
-
+    @objc func modPressed(_ sender: UIButton) {
+        if let text = resultLabel.text, let value = Double(text){
+            let result = value / 100
+            resultLabel.text = "\(result)"
+        }
+    }
+    
+    @objc func operationPressed(_ sender: UIButton) {
+        if nextNum == 2 {
+            nextNum = 1
+        }
+        let tag = sender.tag
+        if tag != 5{
+            if let text = resultLabel.text, let value = Double(text){
+                firstNum = value
+            }
+        }
+        
+        if tag == 1{
+            currentOperation = .divide
+            nextNum = 1
+        } else if tag == 2{
+            currentOperation = .multiply
+            nextNum = 1
+        } else if tag == 3{
+            currentOperation = .substract
+            nextNum = 1
+        } else if tag == 4{
+            currentOperation = .add
+            nextNum = 1
+        } else if tag == 5{
+            nextNum = 2
+            if let operation =  currentOperation {
+                var lastNum = 0.0
+                if let text = resultLabel.text, let value = Double(text){
+                    lastNum = value
+                }
+                
+                switch operation {
+                case .divide:
+                    let result = firstNum / lastNum
+                    resultLabel.text = "\(result)"
+                    break
+                case .multiply:
+                   let result = firstNum * lastNum
+                   resultLabel.text = "\(result)"
+                   break
+                case .substract:
+                    let result = firstNum - lastNum
+                    resultLabel.text = "\(result)"
+                    break
+                case .add:
+                    let result = firstNum + lastNum
+                    resultLabel.text = "\(result)"
+                    break
+                }
+                
+            }
+        }
+        
+    }
 }
 
