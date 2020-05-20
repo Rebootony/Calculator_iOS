@@ -229,4 +229,4 @@ class ViewController: UIViewController {
     }
 }
 
-//TODO: 连续运算。
+//TODO: 连续运算，应该要转换成字符串处理。数位显示
