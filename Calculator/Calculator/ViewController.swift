@@ -11,6 +11,14 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var holder: UIView!
+    private var resultLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .white
+        label.textAlignment = .right
+        label.font = UIFont(name:"Arial", size: 24)
+        return label
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -21,6 +29,7 @@ class ViewController: UIViewController {
     }
     private func setupNumberPad(){
         let buttonSize = view.frame.size.width / 4
+        
         
         let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-buttonSize, width: buttonSize*3, height: buttonSize))
         zeroButton.setTitleColor(.black, for: .normal)
@@ -68,11 +77,11 @@ class ViewController: UIViewController {
         modButton.setTitle("%", for: .normal)
         holder.addSubview(modButton)
         
-        let operation = ["+","-","x","/","="]
+        let operation = ["/","*","-","+","="]
         for x in 0..<5{
             let opButton = UIButton(frame: CGRect(x: buttonSize * 3, y: holder.frame.size.height-buttonSize * CGFloat(x+1), width: buttonSize, height: buttonSize))
             opButton.setTitleColor(.black, for: .normal)
-            opButton.backgroundColor = .white
+            opButton.backgroundColor = .orange
             opButton.setTitle(operation[4-x], for: .normal)
             holder.addSubview(opButton)
         }
