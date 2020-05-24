@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var resultNum = 0.0
     var nextNum = 0
     var currentOperation: Operations?
+    var countOp = 0
     enum Operations {
         case divide, multiply, substract, add
     }
@@ -125,6 +126,7 @@ class ViewController: UIViewController {
         resultLabel.text = "0"
         firstNum = 0.0
         nextNum = 0
+        countOp = 0
     }
     
     @objc func numberPressed(_ sender: UIButton) {
@@ -172,6 +174,7 @@ class ViewController: UIViewController {
     }
     
     @objc func operationPressed(_ sender: UIButton) {
+        countOp += 1
         if nextNum == 2 {
             nextNum = 1
         }
