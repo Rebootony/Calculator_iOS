@@ -185,20 +185,10 @@ class ViewController: UIViewController {
             }
         }
         
-        if tag == 1{
-            currentOperation = .divide
-            nextNum = 1
-        } else if tag == 2{
-            currentOperation = .multiply
-            nextNum = 1
-        } else if tag == 3{
-            currentOperation = .substract
-            nextNum = 1
-        } else if tag == 4{
-            currentOperation = .add
-            nextNum = 1
-        } else if tag == 5{
-            nextNum = 2
+        if (tag == 5 || countOp > 1){
+            if tag == 5 {
+                nextNum = 2
+            }
             if let operation =  currentOperation {
                 var lastNum = 0.0
                 if let text = resultLabel.text, let value = Double(text){
@@ -227,6 +217,20 @@ class ViewController: UIViewController {
             if resultLabel.text == "-0.0" {
                 resultLabel.text = "0.0"
             }
+        }
+        
+        if tag == 1{
+            currentOperation = .divide
+            nextNum = 1
+        } else if tag == 2{
+            currentOperation = .multiply
+            nextNum = 1
+        } else if tag == 3{
+            currentOperation = .substract
+            nextNum = 1
+        } else if tag == 4{
+            currentOperation = .add
+            nextNum = 1
         }
         
     }
