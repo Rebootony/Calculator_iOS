@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         zeroButton.layer.cornerRadius = buttonSize / 2
         zeroButton.clipsToBounds = true
         zeroButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        zeroButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 100)
+        zeroButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 95)
         
         let dotButton = UIButton(frame: CGRect(x: buttonSize*(8 / 3), y: holder.frame.size.height-1.1*buttonSize, width: buttonSize, height: buttonSize))
         dotButton.setTitleColor(.white, for: .normal)
