@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 60)
+        label.font = UIFont(name:"Arial", size: 80)
         return label
     }()
     override func viewDidLoad() {
@@ -39,84 +39,116 @@ class ViewController: UIViewController {
         setupNumberPad()
     }
     private func setupNumberPad(){
-        let buttonSize = view.frame.size.width / 4
+        let buttonSize = view.frame.size.width / 5
         
         
-        let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-buttonSize, width: buttonSize*2, height: buttonSize))
-        zeroButton.setTitleColor(.black, for: .normal)
-        zeroButton.backgroundColor = .white
+        let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-1.1*buttonSize, width: buttonSize*2.3, height: buttonSize))
+        zeroButton.setTitleColor(.white, for: .normal)
+        zeroButton.backgroundColor = .darkGray
         zeroButton.tag = 1
         zeroButton.setTitle("0", for: .normal)
         zeroButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
         holder.addSubview(zeroButton)
+        zeroButton.layer.cornerRadius = buttonSize / 2
+        zeroButton.clipsToBounds = true
+        zeroButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        zeroButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 100)
         
-        let dotButton = UIButton(frame: CGRect(x: buttonSize*2, y: holder.frame.size.height-buttonSize, width: buttonSize, height: buttonSize))
-        dotButton.setTitleColor(.black, for: .normal)
-        dotButton.backgroundColor = .white
+        let dotButton = UIButton(frame: CGRect(x: buttonSize*(8 / 3), y: holder.frame.size.height-1.1*buttonSize, width: buttonSize, height: buttonSize))
+        dotButton.setTitleColor(.white, for: .normal)
+        dotButton.backgroundColor = .darkGray
         dotButton.tag = 11
         dotButton.setTitle(".", for: .normal)
         dotButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
         holder.addSubview(dotButton)
+        dotButton.layer.cornerRadius = buttonSize / 2
+        dotButton.clipsToBounds = true
+        dotButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         
         for x in 0..<3{
-            let otherButton = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-2*buttonSize, width: buttonSize, height: buttonSize))
-            otherButton.setTitleColor(.black, for: .normal)
-            otherButton.backgroundColor = .white
+            let otherButton = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3), y: holder.frame.size.height-2.2*buttonSize, width: buttonSize, height: buttonSize))
+            otherButton.setTitleColor(.white, for: .normal)
+            otherButton.backgroundColor = .darkGray
             otherButton.tag = x+2
             otherButton.setTitle("\(x+1)", for: .normal)
             otherButton.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             holder.addSubview(otherButton)
+
+            otherButton.layer.cornerRadius = buttonSize / 2
+            otherButton.clipsToBounds = true
+            otherButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         }
         for x in 0..<3{
-            let otherButton2 = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-3*buttonSize, width: buttonSize, height: buttonSize))
-            otherButton2.setTitleColor(.black, for: .normal)
-            otherButton2.backgroundColor = .white
+            let otherButton2 = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3), y: holder.frame.size.height-3.3*buttonSize, width: buttonSize, height: buttonSize))
+            otherButton2.setTitleColor(.white, for: .normal)
+            otherButton2.backgroundColor = .darkGray
             otherButton2.tag = x+5
             otherButton2.setTitle("\(x+4)", for: .normal)
             otherButton2.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             holder.addSubview(otherButton2)
+            otherButton2.layer.cornerRadius = buttonSize / 2
+            otherButton2.clipsToBounds = true
+            otherButton2.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         }
         for x in 0..<3{
-            let otherButton3 = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-4*buttonSize, width: buttonSize, height: buttonSize))
-            otherButton3.setTitleColor(.black, for: .normal)
-            otherButton3.backgroundColor = .white
+            let otherButton3 = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3), y: holder.frame.size.height-4.4*buttonSize, width: buttonSize, height: buttonSize))
+            otherButton3.setTitleColor(.white, for: .normal)
+            otherButton3.backgroundColor = .darkGray
             otherButton3.tag = x+8
             otherButton3.setTitle("\(x+7)", for: .normal)
             otherButton3.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             holder.addSubview(otherButton3)
+            otherButton3.layer.cornerRadius = buttonSize / 2
+            otherButton3.clipsToBounds = true
+            otherButton3.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         }
         
-        let clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
+        let clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
         clearButton.setTitleColor(.black, for: .normal)
-        clearButton.backgroundColor = .white
+        clearButton.backgroundColor = .lightGray
         clearButton.setTitle("C", for: .normal)//初始化是AC
         holder.addSubview(clearButton)
+        clearButton.layer.cornerRadius = buttonSize / 2
+        clearButton.clipsToBounds = true
+        clearButton.titleLabel?.font = UIFont.systemFont(ofSize: 26)
         
-        let negButton = UIButton(frame: CGRect(x: buttonSize, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
+        let negButton = UIButton(frame: CGRect(x: buttonSize * (4 / 3), y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
         negButton.setTitleColor(.black, for: .normal)
-        negButton.backgroundColor = .white
+        negButton.backgroundColor = .lightGray
         negButton.setTitle("+/-", for: .normal)
         holder.addSubview(negButton)
         negButton.addTarget(self, action: #selector(negPressed(_:)), for: .touchUpInside)
+        negButton.layer.cornerRadius = buttonSize / 2
+        negButton.clipsToBounds = true
+        negButton.titleLabel?.font = UIFont.systemFont(ofSize: 26)
         
-        let modButton = UIButton(frame: CGRect(x: buttonSize*2, y: holder.frame.size.height-5*buttonSize, width: buttonSize, height: buttonSize))
+        let modButton = UIButton(frame: CGRect(x: buttonSize * (8 / 3), y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
         modButton.setTitleColor(.black, for: .normal)
-        modButton.backgroundColor = .white
+        modButton.backgroundColor = .lightGray
         modButton.setTitle("%", for: .normal)
         holder.addSubview(modButton)
         modButton.addTarget(self, action: #selector(modPressed(_:)), for: .touchUpInside)
+        modButton.layer.cornerRadius = buttonSize / 2
+        modButton.clipsToBounds = true
+        modButton.titleLabel?.font = UIFont.systemFont(ofSize: 26)
         
-        let operation = ["/","*","-","+","="]
+        let operation = ["÷","×","-","+","="]
         for x in 0..<5{
-            let opButton = UIButton(frame: CGRect(x: buttonSize * 3, y: holder.frame.size.height-buttonSize * CGFloat(x+1), width: buttonSize, height: buttonSize))
-            opButton.setTitleColor(.black, for: .normal)
-            opButton.backgroundColor = .orange
+            let opButton = UIButton(frame: CGRect(x: buttonSize * 4, y: holder.frame.size.height-buttonSize * 1.1 * CGFloat(x+1), width: buttonSize, height: buttonSize))
+            opButton.setTitleColor(.white, for: .normal)
+            opButton.backgroundColor = .systemOrange
             opButton.setTitle(operation[4-x], for: .normal)
             opButton.tag = 5-x
             holder.addSubview(opButton)
             opButton.addTarget(self, action: #selector(operationPressed(_:)), for: .touchUpInside)
+            opButton.layer.cornerRadius = buttonSize / 2
+            opButton.clipsToBounds = true
+            opButton.titleLabel?.font = UIFont.systemFont(ofSize: 35)
+            if x == 2{
+                opButton.titleLabel?.font = UIFont.systemFont(ofSize: 42)
+            }
         }
-        resultLabel.frame = CGRect(x: 0, y: holder.frame.size.height-buttonSize * CGFloat(6) , width: view.frame.size.width, height: 100)
+        resultLabel.frame = CGRect(x: 0, y: holder.frame.size.height-buttonSize * 7.1, width: view.frame.size.width*0.95, height: 100)
         holder.addSubview(resultLabel)
         
         clearButton.addTarget(self, action: #selector(clearResult), for: .touchUpInside)
@@ -269,4 +301,4 @@ class ViewController: UIViewController {
     }
 }
 
-//TODO: 数位显示 直接转成字符串形式截断。圆形钮
+//TODO: 数位显示 直接转成字符串形式截断。AC
