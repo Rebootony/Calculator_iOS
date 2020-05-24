@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var nextNum = 0
     var currentOperation: Operations?
     var countOp = 0
+    var consecOp = 0 // check: last one is op?
     enum Operations {
         case divide, multiply, substract, add, equal
     }
@@ -26,7 +27,7 @@ class ViewController: UIViewController {
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 40)
+        label.font = UIFont(name:"Arial", size: 60)
         return label
     }()
     override func viewDidLoad() {
@@ -128,9 +129,11 @@ class ViewController: UIViewController {
         nextNum = 0
         countOp = 0
         currentOperation = .equal
+        consecOp = 0
     }
     
     @objc func numberPressed(_ sender: UIButton) {
+        consecOp = 0
         let tag = sender.tag - 1
         if nextNum == 1 {
             resultLabel.text = "0"
@@ -177,90 +180,93 @@ class ViewController: UIViewController {
     }
     
     @objc func operationPressed(_ sender: UIButton) {
-        countOp += 1
-        if nextNum == 2 {
-            nextNum = 1
-        }
         let tag = sender.tag
-        if countOp == 1{
-            if let text = resultLabel.text, let value = Double(text){
-                firstNum = value
+        if consecOp != 1{
+            countOp += 1
+            if nextNum == 2 {
+                nextNum = 1
             }
-        }
-        
-        if (tag == 5 || countOp > 1){
-            if tag == 5 {
-                nextNum = 2
-                countOp = 0
-            }
-            if let operation =  currentOperation {
-                var lastNum = 0.0
+            if countOp == 1{
                 if let text = resultLabel.text, let value = Double(text){
-                    lastNum = value
-                }
-                
-                switch operation {
-                case .divide:
-                    let result = firstNum / lastNum
-                    resultLabel.text = "\(result)"
-                    firstNum = result
-                    break
-                case .multiply:
-                    let result = firstNum * lastNum
-                    resultLabel.text = "\(result)"
-                    firstNum = result
-                    break
-                case .substract:
-                    let result = firstNum - lastNum
-                    resultLabel.text = "\(result)"
-                    firstNum = result
-                    break
-                case .add:
-                    let result = firstNum + lastNum
-                    resultLabel.text = "\(result)"
-                    firstNum = result
-                    break
-                case .equal:
-                    let result = lastNum
-                    resultLabel.text = "\(result)"
-                    firstNum = result
-                    break
+                    firstNum = value
                 }
             }
-            if resultLabel.text == "-0.0" {
-                resultLabel.text = "0.0"
-            }
-//            if let text = resultLabel.text, let value2 = Double(text){
-//                let number = NSNumber(value: value2)
-//                let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
-//                resultLabel.text = "\(scientific)"
-//            }
-            if let text = resultLabel.text, let value2 = Double(text){
-                let number = NSNumber(value: value2)
-                let numberFormatter = NumberFormatter()
-                numberFormatter.maximumFractionDigits = 7 //设置小数点后最多7位
-                let format = numberFormatter.string(from: number)!
-                resultLabel.text = "\(format)"
+            
+            if (tag == 5 || countOp > 1){
+                if tag == 5 {
+                    nextNum = 2
+                    countOp = 0
+                    consecOp = 0
+                }
+                if let operation =  currentOperation {
+                    var lastNum = 0.0
+                    if let text = resultLabel.text, let value = Double(text){
+                        lastNum = value
+                    }
+                    
+                    switch operation {
+                    case .divide:
+                        let result = firstNum / lastNum
+                        resultLabel.text = "\(result)"
+                        firstNum = result
+                        break
+                    case .multiply:
+                        let result = firstNum * lastNum
+                        resultLabel.text = "\(result)"
+                        firstNum = result
+                        break
+                    case .substract:
+                        let result = firstNum - lastNum
+                        resultLabel.text = "\(result)"
+                        firstNum = result
+                        break
+                    case .add:
+                        let result = firstNum + lastNum
+                        resultLabel.text = "\(result)"
+                        firstNum = result
+                        break
+                    case .equal:
+                        let result = lastNum
+                        resultLabel.text = "\(result)"
+                        firstNum = result
+                        break
+                    }
+                }
+                if resultLabel.text == "-0.0" {
+                    resultLabel.text = "0.0"
+                }
+    //            if let text = resultLabel.text, let value2 = Double(text){
+    //                let number = NSNumber(value: value2)
+    //                let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
+    //                resultLabel.text = "\(scientific)"
+    //            }
+                if let text = resultLabel.text, let value2 = Double(text){
+                    let number = NSNumber(value: value2)
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.maximumFractionDigits = 7 //设置小数点后最多7位
+                    let format = numberFormatter.string(from: number)!
+                    resultLabel.text = "\(format)"
+                }
             }
         }
-        
-        
-        
         if tag == 1{
             currentOperation = .divide
             nextNum = 1
+            consecOp = 1
         } else if tag == 2{
             currentOperation = .multiply
             nextNum = 1
+            consecOp = 1
         } else if tag == 3{
             currentOperation = .substract
             nextNum = 1
+            consecOp = 1
         } else if tag == 4{
             currentOperation = .add
             nextNum = 1
+            consecOp = 1
         }
-        
     }
 }
 
-//TODO: 数位显示 直接转成字符串形式截断。相邻operation应当忽略第一个。圆形钮
+//TODO: 数位显示 直接转成字符串形式截断。圆形钮
