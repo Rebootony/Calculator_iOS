@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var currentOperation: Operations?
     var countOp = 0
     enum Operations {
-        case divide, multiply, substract, add
+        case divide, multiply, substract, add, equal
     }
     
     private var resultLabel: UILabel = {
@@ -127,6 +127,7 @@ class ViewController: UIViewController {
         firstNum = 0.0
         nextNum = 0
         countOp = 0
+        currentOperation = .equal
     }
     
     @objc func numberPressed(_ sender: UIButton) {
@@ -163,6 +164,7 @@ class ViewController: UIViewController {
         if let text = resultLabel.text, let value = Double(text){
             let result = -value
             resultLabel.text = "\(result)"
+            firstNum = result
         }
     }
     
@@ -170,6 +172,7 @@ class ViewController: UIViewController {
         if let text = resultLabel.text, let value = Double(text){
             let result = value / 100
             resultLabel.text = "\(result)"
+            firstNum = result
         }
     }
     
@@ -179,7 +182,7 @@ class ViewController: UIViewController {
             nextNum = 1
         }
         let tag = sender.tag
-        if tag != 5{
+        if countOp == 1{
             if let text = resultLabel.text, let value = Double(text){
                 firstNum = value
             }
@@ -188,6 +191,7 @@ class ViewController: UIViewController {
         if (tag == 5 || countOp > 1){
             if tag == 5 {
                 nextNum = 2
+                countOp = 0
             }
             if let operation =  currentOperation {
                 var lastNum = 0.0
@@ -199,25 +203,41 @@ class ViewController: UIViewController {
                 case .divide:
                     let result = firstNum / lastNum
                     resultLabel.text = "\(result)"
+                    firstNum = result
                     break
                 case .multiply:
-                   let result = firstNum * lastNum
-                   resultLabel.text = "\(result)"
-                   break
+                    let result = firstNum * lastNum
+                    resultLabel.text = "\(result)"
+                    firstNum = result
+                    break
                 case .substract:
                     let result = firstNum - lastNum
                     resultLabel.text = "\(result)"
+                    firstNum = result
                     break
                 case .add:
                     let result = firstNum + lastNum
                     resultLabel.text = "\(result)"
+                    firstNum = result
+                    break
+                case .equal:
+                    let result = lastNum
+                    resultLabel.text = "\(result)"
+                    firstNum = result
                     break
                 }
             }
             if resultLabel.text == "-0.0" {
                 resultLabel.text = "0.0"
             }
+//            if let text = resultLabel.text, let value2 = Double(text){
+//                let number = NSNumber(value: value2)
+//                let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
+//                resultLabel.text = "\(scientific)"
+//            }
         }
+        
+        
         
         if tag == 1{
             currentOperation = .divide
@@ -236,4 +256,4 @@ class ViewController: UIViewController {
     }
 }
 
-//TODO: 逐步运算显示。数位显示。圆形钮
+//TODO: 数位显示。圆形钮
