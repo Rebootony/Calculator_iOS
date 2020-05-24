@@ -235,6 +235,13 @@ class ViewController: UIViewController {
 //                let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
 //                resultLabel.text = "\(scientific)"
 //            }
+            if let text = resultLabel.text, let value2 = Double(text){
+                let number = NSNumber(value: value2)
+                let numberFormatter = NumberFormatter()
+                numberFormatter.maximumFractionDigits = 7 //设置小数点后最多7位
+                let format = numberFormatter.string(from: number)!
+                resultLabel.text = "\(format)"
+            }
         }
         
         
@@ -256,4 +263,4 @@ class ViewController: UIViewController {
     }
 }
 
-//TODO: 数位显示。圆形钮
+//TODO: 数位显示 直接转成字符串形式截断。相邻operation应当忽略第一个。圆形钮
