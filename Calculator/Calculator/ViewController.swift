@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet var holder: UIView!
     
+    var clearButton = UIButton()
     var firstNum = 0.0
     var resultNum = 0.0
     var nextNum = 0
@@ -103,10 +104,10 @@ class ViewController: UIViewController {
             otherButton3.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         }
         
-        let clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
+        clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
         clearButton.setTitleColor(.black, for: .normal)
         clearButton.backgroundColor = .lightGray
-        clearButton.setTitle("C", for: .normal)//初始化是AC
+        clearButton.setTitle("AC", for: .normal)//初始化是AC
         holder.addSubview(clearButton)
         clearButton.layer.cornerRadius = buttonSize / 2
         clearButton.clipsToBounds = true
@@ -162,9 +163,11 @@ class ViewController: UIViewController {
         countOp = 0
         currentOperation = .equal
         consecOp = 0
+        clearButton.setTitle("AC", for: .normal)
     }
     
     @objc func numberPressed(_ sender: UIButton) {
+        clearButton.setTitle("C", for: .normal)
         consecOp = 0
         let tag = sender.tag - 1
         if nextNum == 1 {
@@ -199,7 +202,7 @@ class ViewController: UIViewController {
         if let text = resultLabel.text, let value = Double(text){
             let result = -value
             resultLabel.text = "\(result)"
-            firstNum = result
+            
         }
     }
     
@@ -301,4 +304,4 @@ class ViewController: UIViewController {
     }
 }
 
-//TODO: 数位显示 直接转成字符串形式截断。AC
+//TODO: 数位显示 直接转成字符串形式截断。调大按钮 整体调整间距。正负号不能途中更改
