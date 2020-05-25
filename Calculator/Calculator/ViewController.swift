@@ -315,4 +315,4 @@ class ViewController: UIViewController {
     
 }
 
-//Fixme: 数位显示 直接转成字符串形式截断。
+//Fixme: 数位显示： 没有解决保留有效数字的问题，所以当科学计数法小数位过多时，没有控制好长度。
