@@ -164,10 +164,10 @@ class ViewController: UIViewController {
         currentOperation = .equal
         consecOp = 0
         resultLabel.font = UIFont(name:"Arial", size: 60)
+        clearButton.setTitle("AC", for: .normal)
     }
     
     @objc func numberPressed(_ sender: UIButton) {
-        clearButton.setTitle("C", for: .normal)
         consecOp = 0
         let tag = sender.tag - 1
         if nextNum == 1 {
@@ -177,6 +177,7 @@ class ViewController: UIViewController {
         if nextNum == 2 {
             clearResult()
         }
+        clearButton.setTitle("C", for: .normal)
         if resultLabel.text == "0" {
             if tag == 10 {
                 resultLabel.text = "0."
