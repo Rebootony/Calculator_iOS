@@ -299,10 +299,12 @@ class ViewController: UIViewController {
     }
     
     private func scient(){
-        if let text = resultLabel.text, let value = Double(text){
-            let str = "\(value)"
+        if let text = resultLabel.text, let value2 = Double(text){
+            let str = "\(value2)"
             if str.count > 8 {
-                
+                let number = NSNumber(value: value2)
+                let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
+                resultLabel.text = "\(scientific)"
             }
         }
     }
