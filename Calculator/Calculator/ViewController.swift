@@ -163,7 +163,6 @@ class ViewController: UIViewController {
         countOp = 0
         currentOperation = .equal
         consecOp = 0
-        clearButton.setTitle("AC", for: .normal)
         resultLabel.font = UIFont(name:"Arial", size: 60)
     }
     
@@ -316,3 +315,4 @@ class ViewController: UIViewController {
 }
 
 //Fixme: 数位显示： 没有解决保留有效数字的问题，所以当科学计数法小数位过多时，没有控制好长度。
+//Todo: 可以把操作符按键加动效
