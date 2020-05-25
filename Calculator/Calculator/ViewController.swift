@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 80)
+        label.font = UIFont(name:"Arial", size: 70)
         return label
     }()
     override func viewDidLoad() {
@@ -40,10 +40,10 @@ class ViewController: UIViewController {
         setupNumberPad()
     }
     private func setupNumberPad(){
-        let buttonSize = view.frame.size.width / 5
+        let buttonSize = view.frame.size.width / 4.5
         
         
-        let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-1.1*buttonSize, width: buttonSize*2.3, height: buttonSize))
+        let zeroButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-1.1*buttonSize, width: buttonSize*2.14, height: buttonSize))
         zeroButton.setTitleColor(.white, for: .normal)
         zeroButton.backgroundColor = .darkGray
         zeroButton.tag = 1
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         zeroButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         zeroButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 95)
         
-        let dotButton = UIButton(frame: CGRect(x: buttonSize*(8 / 3), y: holder.frame.size.height-1.1*buttonSize, width: buttonSize, height: buttonSize))
+        let dotButton = UIButton(frame: CGRect(x: buttonSize*(8 / 3.55), y: holder.frame.size.height-1.1*buttonSize, width: buttonSize, height: buttonSize))
         dotButton.setTitleColor(.white, for: .normal)
         dotButton.backgroundColor = .darkGray
         dotButton.tag = 11
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         dotButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         
         for x in 0..<3{
-            let otherButton = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3), y: holder.frame.size.height-2.2*buttonSize, width: buttonSize, height: buttonSize))
+            let otherButton = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3.55), y: holder.frame.size.height-2.2*buttonSize, width: buttonSize, height: buttonSize))
             otherButton.setTitleColor(.white, for: .normal)
             otherButton.backgroundColor = .darkGray
             otherButton.tag = x+2
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
             otherButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         }
         for x in 0..<3{
-            let otherButton2 = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3), y: holder.frame.size.height-3.3*buttonSize, width: buttonSize, height: buttonSize))
+            let otherButton2 = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3.55), y: holder.frame.size.height-3.3*buttonSize, width: buttonSize, height: buttonSize))
             otherButton2.setTitleColor(.white, for: .normal)
             otherButton2.backgroundColor = .darkGray
             otherButton2.tag = x+5
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
             otherButton2.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         }
         for x in 0..<3{
-            let otherButton3 = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3), y: holder.frame.size.height-4.4*buttonSize, width: buttonSize, height: buttonSize))
+            let otherButton3 = UIButton(frame: CGRect(x: buttonSize * (CGFloat(x) * 4 / 3.55), y: holder.frame.size.height-4.4*buttonSize, width: buttonSize, height: buttonSize))
             otherButton3.setTitleColor(.white, for: .normal)
             otherButton3.backgroundColor = .darkGray
             otherButton3.tag = x+8
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
         clearButton.clipsToBounds = true
         clearButton.titleLabel?.font = UIFont.systemFont(ofSize: 26)
         
-        let negButton = UIButton(frame: CGRect(x: buttonSize * (4 / 3), y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
+        let negButton = UIButton(frame: CGRect(x: buttonSize * (4 / 3.55), y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
         negButton.setTitleColor(.black, for: .normal)
         negButton.backgroundColor = .lightGray
         negButton.setTitle("+/-", for: .normal)
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
         negButton.clipsToBounds = true
         negButton.titleLabel?.font = UIFont.systemFont(ofSize: 26)
         
-        let modButton = UIButton(frame: CGRect(x: buttonSize * (8 / 3), y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
+        let modButton = UIButton(frame: CGRect(x: buttonSize * (8 / 3.55), y: holder.frame.size.height-5.5*buttonSize, width: buttonSize, height: buttonSize))
         modButton.setTitleColor(.black, for: .normal)
         modButton.backgroundColor = .lightGray
         modButton.setTitle("%", for: .normal)
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         
         let operation = ["÷","×","-","+","="]
         for x in 0..<5{
-            let opButton = UIButton(frame: CGRect(x: buttonSize * 4, y: holder.frame.size.height-buttonSize * 1.1 * CGFloat(x+1), width: buttonSize, height: buttonSize))
+            let opButton = UIButton(frame: CGRect(x: buttonSize * 3.4, y: holder.frame.size.height-buttonSize * 1.1 * CGFloat(x+1), width: buttonSize, height: buttonSize))
             opButton.setTitleColor(.white, for: .normal)
             opButton.backgroundColor = .systemOrange
             opButton.setTitle(operation[4-x], for: .normal)
@@ -270,11 +270,6 @@ class ViewController: UIViewController {
                 if resultLabel.text == "-0.0" {
                     resultLabel.text = "0.0"
                 }
-    //            if let text = resultLabel.text, let value2 = Double(text){
-    //                let number = NSNumber(value: value2)
-    //                let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
-    //                resultLabel.text = "\(scientific)"
-    //            }
                 if let text = resultLabel.text, let value2 = Double(text){
                     let number = NSNumber(value: value2)
                     let numberFormatter = NumberFormatter()
@@ -300,6 +295,15 @@ class ViewController: UIViewController {
             currentOperation = .add
             nextNum = 1
             consecOp = 1
+        }
+    }
+    
+    private func scient(){
+        if let text = resultLabel.text, let value = Double(text){
+            let str = "\(value)"
+            if str.count > 8 {
+                
+            }
         }
     }
 }
