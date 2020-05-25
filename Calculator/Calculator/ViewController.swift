@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         label.text = "0"
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont(name:"Arial", size: 70)
+        label.font = UIFont(name:"Arial", size: 60)
         return label
     }()
     override func viewDidLoad() {
@@ -164,6 +164,7 @@ class ViewController: UIViewController {
         currentOperation = .equal
         consecOp = 0
         clearButton.setTitle("AC", for: .normal)
+        resultLabel.font = UIFont(name:"Arial", size: 60)
     }
     
     @objc func numberPressed(_ sender: UIButton) {
@@ -277,6 +278,7 @@ class ViewController: UIViewController {
                     let format = numberFormatter.string(from: number)!
                     resultLabel.text = "\(format)"
                 }
+                scientiDisplay()
             }
         }
         if tag == 1{
@@ -298,16 +300,19 @@ class ViewController: UIViewController {
         }
     }
     
-    private func scient(){
+    private func scientiDisplay(){
         if let text = resultLabel.text, let value2 = Double(text){
             let str = "\(value2)"
-            if str.count > 8 {
+            if str.count > 10 {
                 let number = NSNumber(value: value2)
                 let scientific = NumberFormatter.localizedString(from: number, number: .scientific)
                 resultLabel.text = "\(scientific)"
+                resultLabel.font = UIFont(name:"Arial", size: 40)
             }
         }
     }
+    
+    
 }
 
-//TODO: 数位显示 直接转成字符串形式截断。调大按钮 整体调整间距。
+//Fixme: 数位显示 直接转成字符串形式截断。
